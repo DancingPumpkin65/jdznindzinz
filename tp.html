@@ -1,98 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+class Livre {
+    constructor(titre = "Sans titre", genre = "Fiction", auteur = "Sans auteur", lu = false, dateLecture = null) {
+        this.titre = titre;
+        this.genre = genre;
+        this.auteur = auteur;
+        this.lu = lu;
+        this.dateLecture = dateLecture ? new Date(dateLecture) : null;
+    }
+}
+
+class ListeLivres {
+    constructor(livres = []) {
+        if (!Array.isArray(livres)) {
+            livres = [];
+        }
+        this.tousLivres = livres;
+
+        if (this.tousLivres.length > 0) {
+            this.tousLivres.forEach(livre => this.ajouter(livre));
+        }
+    }
+
+    ajouter(livre) {
+        this.tousLivres.push(livre);
+    }
+
+    terminerLivreEnCours() {
+        if (this.livreEnCours) {
+            this.livreEnCours.lu = true;
+            this.dernierLivre = this.livreEnCours;
+            this.livreEnCours = this.livreSuivant;
+        } else {
+            console.log("Il faut se mettre à la lecture");
+        }
+    }
+
+    retirerLivre(titre) {
+        this.tousLivres = this.tousLivres.filter(livre => livre.titre !== titre);
+    }
+
+    nombreLivresLu() {
+        return this.tousLivres.filter(livre => livre.lu === true).length;
+    }
+
+    nombreLivresNonLu() {
+        return this.tousLivres.filter(livre => livre.lu === false).length;
+    }
+
+    livreSuivant() {
+        const index = this.tousLivres.findIndex(livre => !livre.lu);
+        if (index !== -1) {
+            return this.tousLivres[index+1];
+        } else {
+            return null;
+        }
+    }
     
+    livreEnCours() {
+        return this.livreEnCours;
+    }
+}
 
-    <script>
-        
-        class Personne {
-            constructor(nom, age) {
-                this.nom = nom;
-                this.age = age;
-            }
+let livre1 = new Livre("Bader", "Fiction", "Auteur 1", true, new Date());
+let livre2 = new Livre("Aymane", "Non-fiction", "Auteur 2", true);
+let livre3 = new Livre("Mohamed", "Fiction", "Auteur 3", false);
+let livre4 = new Livre("Ouil", "Fiction", "Auteur 3", false);
+let livre5 = new Livre("Chay", "Fiction", "Auteur 3", false);
 
-            decrire() {
-                return `${this.nom}, ${this.age} ans`;
-            }
-        }
+let listeLivres = new ListeLivres();
+listeLivres.ajouter(livre1);
+listeLivres.ajouter(livre2);
+listeLivres.ajouter(livre3);
+listeLivres.ajouter(livre4);
+listeLivres.ajouter(livre5);
 
-        class Formateur extends Personne {
-            constructor(nom, age) {
-                super(nom, age);
-            }
+console.log(listeLivres);
 
-            former(sujet) {
-                console.log(`${this.nom} enseigne ${sujet}`);
-            }
-        }
+listeLivres.terminerLivreEnCours();
+console.log(listeLivres);
 
-        let obj1 = new Personne("Ali", 25);
-        let obj2 = new Personne("Nadia", 24);
-        console.log(obj1.decrire());
-        console.log(obj2.decrire());
+console.log("Nombre de livres lus:", listeLivres.nombreLivresLu());
+console.log("Nombre de livres non luss:", listeLivres.nombreLivresNonLu());
 
-        let obj = new Formateur("Ahmed", 45);
-        obj.former("JavaScript");
+console.log("Livre en cours:", listeLivres.livreEnCours());
+console.log("Livre suivant:", listeLivres.livreSuivant());
 
-        // Exercice 3
-        class Livre {
-            constructor(titre = "Sans titre", genre = "Fiction", auteur = "Sans auteur", lu = false, dateLecture = null) {
-                this.titre = titre;
-                this.genre = genre;
-                this.auteur = auteur;
-                this.lu = lu;
-                this.dateLecture = dateLecture ? new Date(dateLecture) : null;
-            }
-        }
-
-        class ListeLivres {
-            constructor(livres = []) {
-                if (!Array.isArray(livres)) {
-                    livres = [];
-                }
-                this.tousLivres = livres;
-
-                if (this.tousLivres.length > 0) {
-                    this.tousLivres.forEach(livre => this.ajouter(livre));
-                }
-            }
-
-            ajouter(livre) {
-                this.tousLivres.push(livre);
-            }
-
-            terminerLivreEnCours() {
-                if (this.livreEnCours) {
-                    this.livreEnCours.lu = true;
-                    this.dernierLivre = this.livreEnCours;
-                    this.livreEnCours = this.livreSuivant;
-                } else {
-                    console.log("Il faut se mettre à la lecture");
-                }
-            }
-        }
-
-        let livre1 = new Livre("Titre 1", "Fiction", "Auteur 1", true);
-        let livre2 = new Livre("Titre 2", "Non-fiction", "Auteur 2", true);
-        let livre3 = new Livre("Titre 3", "Fiction", "Auteur 3", true, new Date());
-
-        let listeLivres = new ListeLivres();
-        listeLivres.ajouter(livre1);
-        listeLivres.ajouter(livre2);
-        listeLivres.ajouter(livre3);
-
-        console.log(listeLivres);
-
-        listeLivres.terminerLivreEnCours();
-        console.log(listeLivres);
-
-
-
-    </script>
-</body>
-</html>
+listeLivres.retirerLivre("Aymane");
+console.log(listeLivres);
