@@ -1,3 +1,4 @@
+```javascript
 class Livre {
     constructor(titre = "Sans titre", genre = "Fiction", auteur = "Sans auteur", lu = false, dateLecture = null) {
         this.titre = titre;
@@ -7,6 +8,8 @@ class Livre {
         this.dateLecture = dateLecture ? new Date(dateLecture) : null;
     }
 }
+
+You can copy and paste this code directly into your Markdown file on GitHub.
 
 class ListeLivres {
     constructor(livres = []) {
@@ -114,3 +117,4 @@ console.log("Livre suivant:", listeLivres.livreSuivant());
 
 listeLivres.retirerLivre("Aymane");
 console.log(listeLivres);
+```
