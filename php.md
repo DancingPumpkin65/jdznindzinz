@@ -1,20 +1,4 @@
 ```php
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Description de Couleur</title>
-</head>
-<body>
-
-    <form action="" method="post">
-        <label for="couleur">Entrez une couleur :</label>
-        <input type="text" id="couleur" name="couleur">
-        <input type="submit" value="Envoyer">
-    </form>
-    
-<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $couleur = $_POST['couleur'];
     
@@ -31,7 +15,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<p>La couleur spécifiée n'a pas de description associée.</p>";
     }
 }
-?>
-</body>
-</html>
 ```
