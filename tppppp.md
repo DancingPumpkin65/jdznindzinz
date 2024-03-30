@@ -1,4 +1,48 @@
 ```sql
+-- Update ETUDIANT
+UPDATE ETUDIANT
+SET niveauEtu = 'Bac+ 5'
+WHERE niveauEtu = 'Master';
+
+-- Update ETUDIANT
+UPDATE ETUDIANT
+SET niveauEtu = 'Bac+ 4'
+WHERE niveauEtu = 'Bachelor';
+
+-- Update ETUDIANT
+UPDATE ETUDIANT
+SET niveauEtu = 'Phd'
+WHERE niveauEtu = 'Doctorat';
+
+-- Update FORMATION 65454324
+UPDATE FORMATION
+SET titreform = 'développement Java'
+WHERE codeForm = 11;
+
+-- Update ETUDIANT
+UPDATE ETUDIANT 
+SET dateNaissance = '1987/01/02',
+    villeEtu = 'Kenitra'
+WHERE numEtu = 'Alami';
+
+-- Update inscription
+UPDATE Inscription
+SET Typecours = 'Distanciel'
+WHERE numCINEtu = 'G5346789';
+
+-- Alter TABLE inscription
+ALTER TABLE Inscription
+ADD numinscription VARCHAR(40);
+
+ALTER TABLE Isncription
+RENAME TO Inscription;
+
+-- Update inscription
+UPDATE Inscription
+SET numinscription = CONCAT(codeSess0, numCINEtu0);
+```
+
+```sql
 -- Exo 5
 USE centre_formation;
 
